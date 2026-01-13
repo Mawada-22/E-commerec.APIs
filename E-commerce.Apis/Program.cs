@@ -16,6 +16,7 @@ namespace E_commerce.Apis
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
             #endregion
 
             // Configure the HTTP request pipeline.
