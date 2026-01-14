@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Italian Chicken Marinade",
+    "Description": "This Italian dressing chicken marinade is a super simple but delicious way to add flavor before grilling.",
+    "Price": 200,
+    "PictureUrl": "images/products/ItalianChickenMarinade.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "Chicken Marsala",
+    "Description": "Chicken Marsala is an Italian-style recipe for tender pan-fried chicken breasts in a sweet Marsala wine and mushroom sauce. It's super quick and easy to make for a weeknight dinner AND sophisticated enough for company.",
+    "Price": 150,
+    "PictureUrl": "images/products/ChickenMarsala.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "Hearty Vegetable Lasagna",
+    "Description": "This hearty, vegetable lasagna is the only lasagna my husband will eat. We love it! Hope you all enjoy it as much as we do.",
+    "Price": 180,
+    "PictureUrl": "images/products/HeartyVegetableLasagna.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 2
+  },
+  {
+    "Name": "Cheesy Vegetable Lasagna",
+    "Description": "A rich, cheesy lasagna loaded with vegetables. You could also omit all veggies except broccoli for a broccoli lasagna.",
+    "Price": 300,
+    "PictureUrl": "images/products/CheesyVegetableLasagna.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 2
+  },
+  {
+    "Name": "Pasta Salad",
+    "Description": "This pasta salad recipe was given to me by a dear friend many years ago, and I've been making it ever since! It's great for barbecues.",
+    "Price": 250,
+    "PictureUrl": "images/products/PastaSalad.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "Italian Wedding Soup",
+    "Description": "This lovely Italian wedding soup recipe combines flavorful meatballs with sliced escarole, orzo pasta, and finely chopped carrot. Serve hot, garnished with fresh parsley and extra Parmesan cheese.",
+    "Price": 120,
+    "PictureUrl": "images/products/ItalianWeddingSoup.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  }
+]
