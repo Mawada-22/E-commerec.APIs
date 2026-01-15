@@ -3,7 +3,10 @@ using Domain.Contarcts;
 using Microsoft.EntityFrameworkCore;
 using Presistance.Data;
 using Presistance.Data.DataSeeding;
-using System; 
+using Presistance.Repostories;
+using AutoMapper;
+using System;
+using Services;
 
 namespace E_commerce.Apis
 {
@@ -17,14 +20,17 @@ namespace E_commerce.Apis
             // Add services to the container.
 
             builder.Services.AddControllers();
-
+            builder.Services.AddScoped<IDbInitializer, DBIntialaizer>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddAutoMapper(typeof(AssembelyRefernce).Assembly);
             builder.Services.AddDbContext<StoreDbcontext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            builder.Services.AddScoped<IDbInitializer, DBIntialaizer>();
-
+            
+            
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
