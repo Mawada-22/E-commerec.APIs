@@ -27,7 +27,7 @@ namespace Services
 
         }
 
-        public async Task<IEnumerable<BrandDto>> GetAllrands()
+        public async Task<IEnumerable<BrandDto>> GetAllBrands()
         {
             //1- 
             var Brands = await _unitOfWork.GetRepo<int, ProductBrand>().GatAllAsync();

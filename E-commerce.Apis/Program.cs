@@ -7,6 +7,8 @@ using Presistance.Repostories;
 using AutoMapper;
 using System;
 using Services;
+using Microsoft.Extensions.DependencyInjection;
+using ServicesAbstractions;
 
 namespace E_commerce.Apis
 {
@@ -19,10 +21,11 @@ namespace E_commerce.Apis
             #region ServicesContainer
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
             builder.Services.AddScoped<IDbInitializer, DBIntialaizer>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(AssembelyRefernce).Assembly);
+            builder.Services.AddScoped<IServiceManger, ServiceManger>();
             builder.Services.AddDbContext<StoreDbcontext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -56,7 +59,8 @@ namespace E_commerce.Apis
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            //use images 
+            app.UseStaticFiles();
 
             app.MapControllers(); 
             #endregion
