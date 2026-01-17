@@ -22,7 +22,7 @@ namespace Presistance.Data
 
             //aggraiate the all exprestions at the spresfications into teh query 
 
-            result = specefications.InclueExpressions.Aggregate(result, (currnt, Expressions) => currnt.Include(Expressions));
+            result = specefications.InclueExpressions.Aggregate(result,(currnt,Expressions)=>currnt.Include(Expressions));
              
                 return result;
        

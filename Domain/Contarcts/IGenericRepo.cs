@@ -12,7 +12,9 @@ namespace Domain.Contarcts
     public interface IGenericRepo<TKey,TEntity> where TEntity : ModelBase<TKey>
     {
         public Task<IEnumerable<TEntity>> GatAllAsync(bool asNoTracking = false);
-        public Task<TEntity>GetByIdAsync(TKey id);
+        public Task<TEntity>GetByIdAsync(TKey id);  
+        public Task<IEnumerable<TEntity>> GatAllAsync(SpeceficationsAbstracut<TEntity>specefications);
+        public Task<TEntity>GetByIdAsync(SpeceficationsAbstracut<TEntity> specefications); 
 
         public Task AddAsync(TEntity entity);
         public void Update(TEntity entity);

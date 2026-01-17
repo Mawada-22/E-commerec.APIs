@@ -26,7 +26,17 @@ namespace Presistance.Repostories
         public async Task<IEnumerable<TEntity>> GatAllAsync(bool asNoTracking = false)
             => asNoTracking ? await _dbContext.Set<TEntity>().ToListAsync() : await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
 
+        public async Task<IEnumerable<TEntity>> GatAllAsync(SpeceficationsAbstracut<TEntity> specefications)
+        {
+            return await SpecficationsEvaluator.GetQuery(_dbContext.Set<TEntity>(), specefications).ToListAsync();
+        }
+
         public async Task<TEntity?> GetByIdAsync(TKey id) => await _dbContext.Set<TEntity>().FindAsync(id);
+
+        public async Task<TEntity?> GetByIdAsync(SpeceficationsAbstracut<TEntity> specefications)
+        
+            => await SpecficationsEvaluator.GetQuery(_dbContext.Set<TEntity>(), specefications).FirstOrDefaultAsync();
+        
 
         public void Update(TEntity entity) => _dbContext.Update(entity);
     }

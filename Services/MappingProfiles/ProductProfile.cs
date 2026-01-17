@@ -14,8 +14,11 @@ namespace Services.MappingProfiles
         public ProductProfile()
         {
             CreateMap<Product, ProductDto>().ForMember(D => D.BrandName, options => options.MapFrom(s => s.productBrand.Name))
+                .ForMember(D=>D.TypeName,options=>options.MapFrom(s => s.productType.Name))
                 .ForMember(D=>D.PictureUrl,options=>options.MapFrom<PictureUrlResolver>()).ReverseMap();
+            
             CreateMap<ProductBrand, BrandDto>().ReverseMap();
+            
             CreateMap<ProductType,TypeDto>().ReverseMap();
         
         }
