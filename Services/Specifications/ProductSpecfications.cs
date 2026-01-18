@@ -18,12 +18,43 @@ namespace Services.Specifications
             AddIncludes(P=>P.productType);
 
         }
-        public ProductSpecfications()
+        public ProductSpecfications(string?sort) :base()
         {
             AddIncludes(P => P.productBrand);
-            AddIncludes(P => P.productType); 
+            AddIncludes(P => P.productType);
+            //sort here 
+
+            if(!string.IsNullOrEmpty(sort)) 
+            {
+                switch (sort.ToLower().Trim()) 
+                {
+                    case "priceasc":
+                        setOrderby(P => P.Price);
+                        break;
+
+                    case "pricedesc":
+                        setOrderbyDescending(P => P.Price);
+                        break;
+
+                    case "nameasc":
+                        setOrderby(P => P.Name);
+                        break;
+
+                    case "namedesc":
+                        setOrderbyDescending(P => P.Name);
+                        break;
+
+                    default:
+                        setOrderby(P=>P.Name);
+                        break;
+
+
+
+                }
+            }
 
         }
+
 
 
     }

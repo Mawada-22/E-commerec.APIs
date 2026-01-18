@@ -23,6 +23,12 @@ namespace Presistance.Data
             //aggraiate the all exprestions at the spresfications into teh query 
 
             result = specefications.InclueExpressions.Aggregate(result,(currnt,Expressions)=>currnt.Include(Expressions));
+
+            //cheack for sorting 
+            if (specefications.Orderby is not null)
+                result = result.OrderBy(specefications.Orderby);
+            else if (specefications.OrderbyDescending is not null)
+                result = result.OrderByDescending(specefications.OrderbyDescending);
              
                 return result;
        

@@ -15,11 +15,20 @@ namespace Domain.Contarcts
         //feature for the list of experssion that i want the entity to include
         public List<Expression<Func<T,object>>> InclueExpressions = new();
 
+        //add prpertyy for orderby and orderbydescending
+
+        public Expression<Func<T,object>>Orderby {  get; set; }
+        public Expression<Func<T,object>>OrderbyDescending {  get; set; }
+
         //declare the exprestion cariera foe the instructor to be as its class paramete 
         protected SpeceficationsAbstracut(Expression<Func<T, bool>> _Carteria)
         { 
             Carteria = _Carteria;
         } 
+
+        //set the orderby properties: 
+        protected void setOrderby(Expression<Func<T, object>> expression) => Orderby = expression;
+        protected void setOrderbyDescending(Expression<Func<T, object>> expression) => OrderbyDescending = expression;
         
         protected SpeceficationsAbstracut()
         { 

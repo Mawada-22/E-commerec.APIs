@@ -17,10 +17,10 @@ namespace Services
         //1-get data from unit of work 
         //2- map to dto return value
         //3- return teh reslut 
-        public async Task<IEnumerable<ProductDto>> GetAllProducts()
+        public async Task<IEnumerable<ProductDto>> GetAllProducts(string?sort)
         {
             //1- 
-            var products = await _unitOfWork.GetRepo<int, Product>().GatAllAsync(new ProductSpecfications());
+            var products = await _unitOfWork.GetRepo<int, Product>().GatAllAsync(new ProductSpecfications(sort));
             //2-
             var ProducstResult = _mapper.Map<IEnumerable<ProductDto>>(products);
             //3-
