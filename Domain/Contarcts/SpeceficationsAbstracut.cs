@@ -20,6 +20,13 @@ namespace Domain.Contarcts
         public Expression<Func<T,object>>Orderby {  get; set; }
         public Expression<Func<T,object>>OrderbyDescending {  get; set; }
 
+        //add features for teh pagaination
+
+        public int Take {  get; set; }
+        public int Skip { get; set; }
+
+        public bool IsPaginted { get; set; }
+
         //declare the exprestion cariera foe the instructor to be as its class paramete 
         protected SpeceficationsAbstracut(Expression<Func<T, bool>> _Carteria)
         { 
@@ -39,6 +46,13 @@ namespace Domain.Contarcts
         public void AddIncludes(Expression<Func<T, object>> expression )
         {
             InclueExpressions.Add(expression);
+        }
+
+        public void ApplyPagination(int pageIndex,int pageSize)
+        {
+            IsPaginted = true;
+            Take = pageIndex;
+            Skip = (pageIndex-1)*pageSize;
         }
     }
 }

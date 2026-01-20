@@ -21,6 +21,9 @@ namespace Presistance.Repostories
         }
         public async Task AddAsync(TEntity entity) => await _dbContext.Set<TEntity>().AddAsync(entity);
 
+        public async Task<int> CountAsync(SpeceficationsAbstracut<TEntity> specefications)
+       => await SpecficationsEvaluator.GetQuery(_dbContext.Set<TEntity>(), specefications).CountAsync();
+
         public void Delete(TEntity entity) => _dbContext.Set<TEntity>().Remove(entity);
 
         public async Task<IEnumerable<TEntity>> GatAllAsync(bool asNoTracking = false)

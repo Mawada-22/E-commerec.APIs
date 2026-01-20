@@ -29,6 +29,10 @@ namespace Presistance.Data
                 result = result.OrderBy(specefications.Orderby);
             else if (specefications.OrderbyDescending is not null)
                 result = result.OrderByDescending(specefications.OrderbyDescending);
+
+            //pagination
+            if(specefications.IsPaginted)
+                result=result.Skip(specefications.Skip).Take(specefications.Take);  
              
                 return result;
        

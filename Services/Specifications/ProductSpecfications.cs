@@ -1,5 +1,6 @@
 ﻿using Domain.Contarcts;
 using Domain.Entities;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,46 +19,37 @@ namespace Services.Specifications
             AddIncludes(P=>P.productType);
 
         }
-        public ProductSpecfications(string?sort, int? BrandId, int? TypeId) :base(product=>
-        (!BrandId.HasValue || product.ProductBrandId==BrandId)
+        public ProductSpecfications(ProductSpecParams Params) :base(product=>
+        (!Params.BrandId.HasValue || product.ProductBrandId==Params.BrandId)
         &&
-        (!TypeId.HasValue || product.ProductTypeId==TypeId)
+        (!Params.TypeId.HasValue || product.ProductTypeId==Params.TypeId)
         )
-        {
+        { 
             AddIncludes(P => P.productBrand);
             AddIncludes(P => P.productType);
             //sort here 
-
-            if(!string.IsNullOrEmpty(sort)) 
+            switch (Params.Sort)
             {
-                switch (sort.ToLower().Trim()) 
-                {
-                    case "priceasc":
-                        setOrderby(P => P.Price);
-                        break;
+                case ProductSortingOptions.PriceAsc:
+                    setOrderby(p => p.Price);
+                    break;
 
-                    case "pricedesc":
-                        setOrderbyDescending(P => P.Price);
-                        break;
+                case ProductSortingOptions.PriceDesc:
+                    setOrderbyDescending(p => p.Price);
+                    break;
 
-                    case "nameasc":
-                        setOrderby(P => P.Name);
-                        break;
+                case ProductSortingOptions.NameDesc:
+                    setOrderbyDescending(p => p.Name);
+                    break;
 
-                    case "namedesc":
-                        setOrderbyDescending(P => P.Name);
-                        break;
-
-                    default:
-                        setOrderby(P=>P.Name);
-                        break;
-
-
-
-                }
+                default:
+                    setOrderby(p => p.Name);
+                    break;
             }
+            ApplyPagination(Params.PageIndex, Params.PageSize);
 
         }
+        
 
 
 
