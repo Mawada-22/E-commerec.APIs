@@ -48,11 +48,12 @@ namespace Domain.Contarcts
             InclueExpressions.Add(expression);
         }
 
-        public void ApplyPagination(int pageIndex,int pageSize)
+        public void ApplyPagination(int pageIndex, int pageSize)
         {
             IsPaginted = true;
-            Take = pageIndex;
-            Skip = (pageIndex-1)*pageSize;
+            Skip = (pageIndex - 1) * pageSize;
+            Take = pageSize;
         }
+
     }
 }

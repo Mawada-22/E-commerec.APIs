@@ -23,6 +23,8 @@ namespace Services.Specifications
         (!Params.BrandId.HasValue || product.ProductBrandId==Params.BrandId)
         &&
         (!Params.TypeId.HasValue || product.ProductTypeId==Params.TypeId)
+        &&
+        (string.IsNullOrWhiteSpace(Params.Search)||product.Name.ToLower().Contains(Params.Search.ToLower().Trim()))
         )
         { 
             AddIncludes(P => P.productBrand);

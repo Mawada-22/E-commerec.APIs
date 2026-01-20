@@ -27,7 +27,12 @@ namespace Services
             //3-
             var count = ProducstResult.Count();
             var Totalcount = await  _unitOfWork.GetRepo<int, Product>().CountAsync(new ProductCountSpecfications(Params));
-            return new PaginationResult<ProductDto>(Params.PageIndex,count,Totalcount,ProducstResult);
+           return new PaginationResult<ProductDto>(
+             Params.PageSize,
+             Params.PageIndex,
+             Totalcount,
+             ProducstResult);
+
 
         }
 
