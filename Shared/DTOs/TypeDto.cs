@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared
+namespace Shared.DTOs
 {
-    public class BrandDto
+    public class TypeDto
     {
         public string Name { get; set; }
     }

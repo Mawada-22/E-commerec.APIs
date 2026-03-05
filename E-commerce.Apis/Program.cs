@@ -9,7 +9,11 @@ using System;
 using Services;
 using Microsoft.Extensions.DependencyInjection;
 using ServicesAbstractions;
- 
+using E_commerce.Apis.MiddleWares;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using E_commerce.Apis.Factories;
+
 namespace E_commerce.Apis
 {
     public class Program
@@ -31,6 +35,11 @@ namespace E_commerce.Apis
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            builder.Services.Configure<ApiBehaviorOptions>(Options =>
+            {
+                Options.InvalidModelStateResponseFactory = ApiResponseFactory.CustomValidationErrorResponse;
+            });
+            
             
             
             
@@ -50,6 +59,7 @@ namespace E_commerce.Apis
             // Configure the HTTP request pipeline.
 
             #region KestrelMiddlewareCongif
+            app.UseMiddleware<GlobalErrorHandlingMiddleWare>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Domain.Contarcts;
 using Domain.Entities;
+using Domain.Exceptions;
 using Services.Specifications;
 using ServicesAbstractions;
-using Shared;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,10 +61,13 @@ namespace Services
         {
             //1-
             var Product = await _unitOfWork.GetRepo<int,Product>().GetByIdAsync(new ProductSpecfications(id));
-            //2-
+           
+            /*//2-
             var ProductResult = _mapper.Map<ProductDto>(Product);
             //3-
-            return ProductResult;
+            return ProductResult;*/
+
+            return Product is null ? throw new ProductNotFoundException(id) : _mapper.Map<ProductDto>(Product);
         }
     }
 }

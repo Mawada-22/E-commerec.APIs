@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using ServicesAbstractions;
-using Shared;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Presentation
-{        
+{
     [ApiController]
     [Route("/[controller]")] //baseurl \controller
     public class ProductController(IServiceManger _serviceManger): ControllerBase

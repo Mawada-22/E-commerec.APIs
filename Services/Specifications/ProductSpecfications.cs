@@ -1,6 +1,6 @@
 ﻿using Domain.Contarcts;
 using Domain.Entities;
-using Shared;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

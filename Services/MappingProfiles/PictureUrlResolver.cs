@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
-using Shared;
+using Shared.DTOs;
 
 public class PictureUrlResolver : IValueResolver<Product, ProductDto, string>
 {
