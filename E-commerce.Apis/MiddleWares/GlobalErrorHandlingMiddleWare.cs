@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using Domain.Exceptions;
 using Shared.Error_Models;
 
@@ -22,6 +23,9 @@ namespace E_commerce.Apis.MiddleWares
             try
             {
                 await _next(httpContext);
+                //not found endpoint handling
+                if (httpContext.Response.StatusCode == (int)HttpStatusCode.NotFound)
+                    await HandelNotFountEndPointAsync(httpContext);
             }
             catch (Exception ex)
             {
@@ -31,9 +35,19 @@ namespace E_commerce.Apis.MiddleWares
             }
         }
 
-        private static async Task HandleExceptionAsync(
-            HttpContext context,
-            Exception exception)
+        private async Task HandelNotFountEndPointAsync(HttpContext httpContext)
+        {
+            httpContext.Response.ContentType = "application/json";
+            var errorDetails = new ErrorDetails
+                (
+               message: $"The End Point {httpContext.Request.Path} Is Not Found",
+               code:(int)HttpStatusCode.NotFound
+                 ).ToString();
+
+            await httpContext.Response.WriteAsync(errorDetails);
+        }
+
+        private static async Task HandleExceptionAsync(HttpContext context,Exception exception)
         {
             context.Response.ContentType = "application/json";
 
