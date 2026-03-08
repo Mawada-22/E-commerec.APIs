@@ -1,0 +1,26 @@
+﻿using AutoMapper;
+using Domain.Entities;
+using Shared.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Services.MappingProfiles
+{
+    public class ProductProfile : Profile
+    {
+        public ProductProfile()
+        {
+            CreateMap<Product, ProductDto>().ForMember(D => D.BrandName, options => options.MapFrom(s => s.productBrand.Name))
+                .ForMember(D=>D.TypeName,options=>options.MapFrom(s => s.productType.Name))
+                .ForMember(D=>D.PictureUrl,options=>options.MapFrom<PictureUrlResolver>()).ReverseMap();
+            
+            CreateMap<ProductBrand, BrandDto>().ReverseMap();
+            
+            CreateMap<ProductType,TypeDto>().ReverseMap();
+        
+        }
+    }
+}

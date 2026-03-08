@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Shared.DTOs
 {
-    public class ProductBrand : ModelBase<int>
+    public class BrandDto
     {
         public string Name { get; set; }
-        public string Description { get; set; } = null!;
-
     }
 }

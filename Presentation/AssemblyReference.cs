@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Presentation
 {
-    public class ModelBase<TKey>
+    public class AssemblyReference
     {
-        public TKey Id { get; set; }    
-
     }
 }
