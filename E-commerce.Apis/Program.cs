@@ -4,15 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Presistance.Data;
 using Presistance.Data.DataSeeding;
 using Presistance.Repostories;
-using AutoMapper;
-using System;
 using Services;
-using Microsoft.Extensions.DependencyInjection;
 using ServicesAbstractions;
-using E_commerce.Apis.MiddleWares;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using E_commerce.Apis.Factories;
+using E_commerce.Apis.Extensions;
+using E_commerce.Apis.Extension;
 
 namespace E_commerce.Apis
 {
@@ -24,66 +21,18 @@ namespace E_commerce.Apis
 
             #region ServicesContainer
             // Add services to the container.
-
-            builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
-            builder.Services.AddScoped<IDbInitializer, DBIntialaizer>();
-            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-            builder.Services.AddAutoMapper(typeof(AssembelyRefernce).Assembly);
-            builder.Services.AddScoped<IServiceManger, ServiceManger>();
-            builder.Services.AddDbContext<StoreDbcontext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
-
-            builder.Services.Configure<ApiBehaviorOptions>(Options =>
-            {
-                Options.InvalidModelStateResponseFactory = ApiResponseFactory.CustomValidationErrorResponse;
-            });
-            
-            
-            
-            
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            
-          
-
-
-
-            var app = builder.Build();
-            await IntializeDbAsync(app);
-
+            builder.Services.AddServices(builder.Configuration);
             #endregion
-
+            var app = builder.Build();
             // Configure the HTTP request pipeline.
 
             #region KestrelMiddlewareCongif
-            app.UseMiddleware<GlobalErrorHandlingMiddleWare>();
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-            //use images 
-            app.UseStaticFiles();
-
-            app.MapControllers(); 
+            await app.UseAppMiddleware();
             #endregion
 
             app.Run();
 
-            async Task IntializeDbAsync(WebApplication app)
-            {
-                // create object from type imblemnts IDIntializer -- DI Explicitly 
-                using var scope = app.Services.CreateScope();
-                var dbIntializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-                await dbIntializer.IntialaizerAsync();
-            }
+         
         }
     }
 }
