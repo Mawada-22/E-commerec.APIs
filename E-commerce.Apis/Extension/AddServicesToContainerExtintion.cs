@@ -7,6 +7,7 @@ using Presistance.Data.DataSeeding;
 using Presistance.Repostories;
 using Services;
 using ServicesAbstractions;
+using StackExchange.Redis;
 
 namespace E_commerce.Apis.Extension
 {
@@ -34,7 +35,8 @@ namespace E_commerce.Apis.Extension
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-
+            services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
+            services.AddScoped<IBasketRepo, BasketRepo>();
             return services;
         }
     }

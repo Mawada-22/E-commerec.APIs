@@ -10,6 +10,7 @@ namespace ServicesAbstractions
     {
         //Signiture for each and every service
         IProductServices ProductServices { get; }
+        IBasketService BasketService { get; }
 
     }
 }

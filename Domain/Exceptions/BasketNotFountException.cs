@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public sealed class ProductNotFoundException : NotFoundException
+    public sealed class BasketNotFountException: NotFoundException
     {
-        public ProductNotFoundException(int id) : base($"Product With Id :{id} is not found")
+        public BasketNotFountException(string id):base($"Basket With Id :{id} is not found")
         {
+
         }
     }
 }
