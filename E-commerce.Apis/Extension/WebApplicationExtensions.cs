@@ -10,6 +10,7 @@ namespace E_commerce.Apis.Extensions
             using var scope = app.Services.CreateScope();
             var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
             await dbInitializer.IntialaizerAsync();
+            await dbInitializer.IdenetityIntialaizerAsync();
 
             // 2. Setup the Request Pipeline
             app.UseMiddleware<GlobalErrorHandlingMiddleWare>();

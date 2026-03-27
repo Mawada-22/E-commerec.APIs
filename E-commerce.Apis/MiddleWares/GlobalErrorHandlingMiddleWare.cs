@@ -57,6 +57,7 @@ namespace E_commerce.Apis.MiddleWares
             context.Response.StatusCode = exception switch
             {
                 NotFoundException => (int)HttpStatusCode.NotFound,
+                unAuthorizedException => (int)HttpStatusCode.Unauthorized,   //401
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

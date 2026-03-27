@@ -1,5 +1,7 @@
 ﻿using Domain.Contarcts;
 using Domain.Entities;
+using Domain.Entities.Idenetity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,10 +15,54 @@ namespace Presistance.Data.DataSeeding
     public class DBIntialaizer : IDbInitializer
     {
         private readonly StoreDbcontext _dbcontext;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<User> _userManager;
 
-        public DBIntialaizer(StoreDbcontext dbcontext) {
+        public DBIntialaizer(StoreDbcontext dbcontext,RoleManager<IdentityRole>roleManager, UserManager<User>userManager) {
 
            _dbcontext = dbcontext;
+            _roleManager = roleManager;
+            _userManager = userManager;
+        }
+
+        public async Task IdenetityIntialaizerAsync()
+        {
+            //Seed defalute user and Role
+            //1- Seed Roles
+            if (!_roleManager.Roles.Any())
+            {
+                //Admin and Superadmin
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+               await  _roleManager.CreateAsync(new IdentityRole("SuperAdmin"));
+            }
+            //2-Seed Users with roles
+            if (!_userManager.Users.Any())
+            {
+                var adminUser = new User
+                {
+                    UserName = "Admin",
+                    Email = "Admin@gmail.com",
+                    PhoneNumber = "01234523",
+                    EmailConfirmed = true
+                };
+                var superAdminUser = new User
+                {
+                    UserName = "SuperAdmin",
+                    Email = "superadmin@gmail.com",
+                    PhoneNumber = "01112821822",
+                    EmailConfirmed = true
+                };
+                var result = await _userManager.CreateAsync(adminUser, "Mw@12345");
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                        Console.WriteLine(error.Description);
+                }
+                await _userManager.CreateAsync(superAdminUser,"Mw@12345");
+                await _userManager.AddToRoleAsync(adminUser, "Admin");
+                await _userManager.AddToRoleAsync(superAdminUser, "SuperAdmin");              
+            }
+            
         }
         public async Task IntialaizerAsync()
         {

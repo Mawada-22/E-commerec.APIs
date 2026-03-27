@@ -11,7 +11,7 @@ namespace Presistance.Data
 {
     public class StoreDbcontext:DbContext
     {
-        public StoreDbcontext(DbContextOptions options) : base(options)
+        public StoreDbcontext(DbContextOptions<StoreDbcontext> options) : base(options)
         {
             
         }

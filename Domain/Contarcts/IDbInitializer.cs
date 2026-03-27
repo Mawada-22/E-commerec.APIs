@@ -9,5 +9,6 @@ namespace Domain.Contarcts
     public interface IDbInitializer
     {
         public Task IntialaizerAsync();
+        public Task IdenetityIntialaizerAsync();
     }
 }
