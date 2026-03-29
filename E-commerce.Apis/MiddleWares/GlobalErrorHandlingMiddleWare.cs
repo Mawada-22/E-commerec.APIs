@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Azure;
 using Domain.Exceptions;
 using Shared.Error_Models;
 
@@ -53,20 +54,28 @@ namespace E_commerce.Apis.MiddleWares
 
             // 500 is the correct status for unhandled server errors
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
+            var errorDetails = new ErrorDetails(
+                message: exception.Message,
+                code:(int)HttpStatusCode.InternalServerError
+            );
             context.Response.StatusCode = exception switch
             {
                 NotFoundException => (int)HttpStatusCode.NotFound,
                 unAuthorizedException => (int)HttpStatusCode.Unauthorized,   //401
+                UserValidationException e => HandleUserValidationException(e, errorDetails),
+
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
-            var errorDetails = new ErrorDetails(
-                message: exception.Message,
-                code: context.Response.StatusCode
-            );
+            errorDetails.Code = context.Response.StatusCode;
 
             await context.Response.WriteAsync(errorDetails.ToString());
+        }
+
+        private static int HandleUserValidationException(UserValidationException e, ErrorDetails errorDetails)
+        {
+            errorDetails.Errors = e._Errors;
+            return (int)HttpStatusCode.BadRequest;
         }
     }
 }

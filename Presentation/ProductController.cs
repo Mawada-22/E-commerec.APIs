@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    [ApiController]
-    [Route("/[controller]")] //baseurl \controller
-    public class ProductController(IServiceManger _serviceManger): ControllerBase
+    public class ProductController(IServiceManger _serviceManger): ApiController
     {
 
         [HttpGet]

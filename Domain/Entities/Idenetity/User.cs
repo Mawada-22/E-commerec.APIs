@@ -10,7 +10,7 @@ namespace Domain.Entities.Idenetity
 {
     public class User : IdentityUser
     {
-        public string UserName { get; set; }
+        public string? DisplayName { get; set; }
         public Address address { get; set; }
 
     }

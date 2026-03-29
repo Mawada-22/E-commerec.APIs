@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    [ApiController]
-    [Route("/[controller]")] //baseurl \Basket
-    public class BasketController(IServiceManger _serviceManger) : Controller
+    public class BasketController(IServiceManger _serviceManger) : ApiController
     {
         [HttpGet("{id}")] 
         public async Task<ActionResult<BasketDto>>Get(string id)

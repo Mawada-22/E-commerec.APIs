@@ -23,6 +23,7 @@ namespace E_commerce.Apis.Extensions
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

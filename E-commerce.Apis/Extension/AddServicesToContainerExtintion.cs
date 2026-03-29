@@ -24,6 +24,8 @@ namespace E_commerce.Apis.Extension
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(AssembelyRefernce).Assembly);
             services.AddScoped<IServiceManger, ServiceManger>();
+            
+            
 
             // Use the 'configuration' parameter here
             services.AddDbContext<StoreDbcontext>(options =>

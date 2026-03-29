@@ -27,14 +27,27 @@ namespace Services
             // generate token
 
 
-            return new UserResultDto(user.UserName,user.Email!,"Token");
+            return new UserResultDto(user.DisplayName,user.Email!,"Token");
 
 
         }
 
-        public Task<UserResultDto> registerAsync(RegisterDto registerDto)
+        public async Task<UserResultDto> registerAsync(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                PhoneNumber = registerDto.phoneNumber,
+                UserName = registerDto.UserName
+            };
+            var result=await _userManager.CreateAsync(user, registerDto.Password);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description).ToList();
+                throw new UserValidationException(errors);
+            }
+            return new UserResultDto(registerDto.DisplayName, registerDto.Email!, "Token");
         }
     }
 }
