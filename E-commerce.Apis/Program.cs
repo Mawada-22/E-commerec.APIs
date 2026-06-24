@@ -12,7 +12,7 @@ namespace E_commerce.Apis
             #region ServicesContainer
             // Add services to the container.
             builder.Services.AddServices(builder.Configuration);
-            builder.Services.AddIdenetityServices();
+            builder.Services.AddIdenetityServices(builder.Configuration);
             #endregion
             var app = builder.Build();
             // Configure the HTTP request pipeline.

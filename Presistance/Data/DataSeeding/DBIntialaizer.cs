@@ -41,6 +41,7 @@ namespace Presistance.Data.DataSeeding
                 var adminUser = new User
                 {
                     UserName = "Admin",
+                    DisplayName="Admin",
                     Email = "Admin@gmail.com",
                     PhoneNumber = "01234523",
                     EmailConfirmed = true
@@ -48,6 +49,7 @@ namespace Presistance.Data.DataSeeding
                 var superAdminUser = new User
                 {
                     UserName = "SuperAdmin",
+                    DisplayName="SuperAdmin",
                     Email = "superadmin@gmail.com",
                     PhoneNumber = "01112821822",
                     EmailConfirmed = true

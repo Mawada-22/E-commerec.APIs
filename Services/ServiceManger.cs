@@ -2,7 +2,9 @@
 using Domain.Contarcts;
 using Domain.Entities.Idenetity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using ServicesAbstractions;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,10 @@ namespace Services
         private readonly Lazy<IAthenticationService> _athenticationService;
         
 
-        public ServiceManger(IUnitOfWork unitOfWork,IMapper mapper,IBasketRepo basketRepo,UserManager<User> userManager) {
+        public ServiceManger(IUnitOfWork unitOfWork,IMapper mapper,IBasketRepo basketRepo,UserManager<User> userManager, IOptions<JwtOptions> jwtOptions) {
             _productServices = new Lazy<IProductServices>(()=> new ProductServices(unitOfWork,mapper));
             _basketService = new Lazy<IBasketService>(() => new BasketService(basketRepo, mapper));
-            _athenticationService = new Lazy<IAthenticationService>(() => new AthenticationService(userManager));
+            _athenticationService = new Lazy<IAthenticationService>(() => new AthenticationService(userManager, jwtOptions));
 
         }
         IProductServices IServiceManger.ProductServices => _productServices.Value;

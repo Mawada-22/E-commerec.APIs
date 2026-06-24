@@ -1,16 +1,21 @@
 ﻿using Domain.Contarcts;
 using Domain.Entities.Idenetity;
 using E_commerce.Apis.Factories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Presistance.Data;
 using Presistance.Data.DataSeeding;
 using Presistance.Idenetity;
 using Presistance.Repostories;
 using Services;
 using ServicesAbstractions;
+using Shared;
 using StackExchange.Redis;
+using System.Text;
 
 namespace E_commerce.Apis.Extension
 {
@@ -43,18 +48,79 @@ namespace E_commerce.Apis.Extension
             });
 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer",
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Name = "Authorization",
+                        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                        Description = "Enter JWT Token"
+                    });
+
+                options.AddSecurityRequirement(
+                    new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                    {
+            {
+                new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Reference =
+                        new Microsoft.OpenApi.Models.OpenApiReference
+                        {
+                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                },
+                Array.Empty<string>()
+            }
+                    });
+            });
+
             services.AddSingleton<IConnectionMultiplexer>(_=> ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")!));
             services.AddScoped<IBasketRepo, BasketRepo>();
             return services;
         }
-        public static IServiceCollection AddIdenetityServices (this IServiceCollection services)
+        public static IServiceCollection AddIdenetityServices (this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, IdentityRole>(opt =>{
                 opt.Password.RequireLowercase = true;
                 opt.Password.RequireUppercase = true;
                 opt.Password.RequiredLength = 8;
             }).AddEntityFrameworkStores<IdenetityAppDBcontext>();
+            services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
+            var jwtOptions = configuration.GetSection("JwtOptions").Get<JwtOptions>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+
+                options.DefaultChallengeScheme =
+                    JwtBearerDefaults.AuthenticationScheme;
+            })
+   .AddJwtBearer(options =>
+   {
+       options.TokenValidationParameters =
+           new TokenValidationParameters
+           {
+               ValidateIssuer = true,
+               ValidateAudience = true,
+               ValidateLifetime = true,
+               ValidateIssuerSigningKey = true,
+
+               ValidIssuer = jwtOptions!.Issuer,
+               ValidAudience = jwtOptions.Audience,
+
+               IssuerSigningKey =
+                   new SymmetricSecurityKey(
+                       Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+           };
+   });
+
             return services;
         }
     }
