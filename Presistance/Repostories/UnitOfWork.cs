@@ -27,9 +27,6 @@ namespace Presistance.Repostories
             return (IGenericRepo<TKey, TEntity>) Repos.GetOrAdd(typeof(TEntity).Name, _ => new GenericRepo<TKey, TEntity>(_dbContext));
         }
 
-        public Task<int> SaveChangesAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<int> SaveChangesAsync() => _dbContext.SaveChangesAsync();
     }
 }

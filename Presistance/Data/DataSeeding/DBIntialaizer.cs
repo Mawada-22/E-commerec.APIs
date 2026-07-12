@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Entities.Idenetity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,16 @@ namespace Presistance.Data.DataSeeding
         private readonly StoreDbcontext _dbcontext;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
+        private readonly string _dataSeedingPath;
 
-        public DBIntialaizer(StoreDbcontext dbcontext,RoleManager<IdentityRole>roleManager, UserManager<User>userManager) {
+        public DBIntialaizer(StoreDbcontext dbcontext,RoleManager<IdentityRole>roleManager, UserManager<User>userManager, IHostEnvironment hostEnvironment) {
 
            _dbcontext = dbcontext;
             _roleManager = roleManager;
             _userManager = userManager;
+            //ContentRootPath is stable regardless of how/where the process is launched from (IIS, Docker, dotnet publish, etc.),
+            //unlike the process current-directory that the previous relative path relied on.
+            _dataSeedingPath = Path.GetFullPath(Path.Combine(hostEnvironment.ContentRootPath, "..", "Presistance", "Data", "DataSeeding"));
         }
 
         public async Task IdenetityIntialaizerAsync()
@@ -77,9 +82,7 @@ namespace Presistance.Data.DataSeeding
                 //seeding the data into tables
 
                 //types:
-                //1-read files as string  C:\Users\lenovo\Desktop\C#\E-commerecSolution\Presistance\Data\DataSeeding\types (1).json
-
-                var typesData = await File.ReadAllTextAsync(@"..\Presistance\Data\DataSeeding\types (1).json");
+                var typesData = await File.ReadAllTextAsync(Path.Combine(_dataSeedingPath, "types.json"));
 
                 //2-convert into C# objects
 
@@ -94,9 +97,7 @@ namespace Presistance.Data.DataSeeding
                 }
 
                 //Brands:
-                //1-read files as string  C:\Users\lenovo\Desktop\C#\E-commerecSolution\Presistance\Data\DataSeeding\types (1).json
-
-                var brandsData = await File.ReadAllTextAsync(@"..\Presistance\Data\DataSeeding\brands (1).json");
+                var brandsData = await File.ReadAllTextAsync(Path.Combine(_dataSeedingPath, "brands.json"));
 
                 //2-convert into C# objects
 
@@ -112,9 +113,7 @@ namespace Presistance.Data.DataSeeding
 
 
                 //Products:
-                //1-read files as string  C:\Users\lenovo\Desktop\C#\E-commerecSolution\Presistance\Data\DataSeeding\types (1).json
-
-                var ProductsData = await File.ReadAllTextAsync(@"..\Presistance\Data\DataSeeding\products (1).json");
+                var ProductsData = await File.ReadAllTextAsync(Path.Combine(_dataSeedingPath, "products.json"));
 
                 //2-convert into C# objects
 
@@ -128,6 +127,16 @@ namespace Presistance.Data.DataSeeding
                     await _dbcontext.SaveChangesAsync();
                 }
 
+                //DeliveryMethods:
+                var deliveryData = await File.ReadAllTextAsync(Path.Combine(_dataSeedingPath, "delivery.json"));
+
+                var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+
+                if (deliveryMethods is not null && deliveryMethods.Any() && !_dbcontext.DeliveryMethods.Any())
+                {
+                    await _dbcontext.DeliveryMethods.AddRangeAsync(deliveryMethods);
+                    await _dbcontext.SaveChangesAsync();
+                }
 
             }
             catch (Exception) 

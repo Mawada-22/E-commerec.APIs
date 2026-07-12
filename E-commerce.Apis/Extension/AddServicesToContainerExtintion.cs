@@ -28,8 +28,12 @@ namespace E_commerce.Apis.Extension
             services.AddScoped<IDbInitializer, DBIntialaizer>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(AssembelyRefernce).Assembly);
+            services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IAthenticationService, AthenticationService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IServiceManger, ServiceManger>();
-            
+
             
 
             // Use the 'configuration' parameter here
