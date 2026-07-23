@@ -20,6 +20,10 @@ namespace Domain.Entities
 
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
+        // Stripe PaymentIntent this order was placed against; the webhook uses it
+        // to flip Status to PaymentReceived/PaymentFailed.
+        public string? PaymentIntentId { get; set; }
+
         public decimal GetTotal() => SubTotal + (DeliveryMethod?.Price ?? 0);
     }
 }

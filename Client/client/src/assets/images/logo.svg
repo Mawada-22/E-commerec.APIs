@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Mawada's Kitchen — cute purple cupcake logo -->
+  <!-- soft cream circle background -->
+  <circle cx="32" cy="32" r="30" fill="#fdf9f3" stroke="#e2d5f0" stroke-width="2"/>
+
+  <!-- frosting swirl -->
+  <path d="M18 34
+           c -2 -6 3 -11 8 -9
+           c 0 -6 8 -8 11 -3
+           c 5 -3 11 2 8 8
+           c 4 1 4 6 1 8
+           l -26 0
+           c -3 -1 -4 -3 -2 -4 z"
+        fill="#b388eb"/>
+
+  <!-- cupcake wrapper -->
+  <path d="M19 38 l26 0 -4 14 c -0.3 1.2 -1.4 2 -2.6 2 l -12.8 0 c -1.2 0 -2.3 -0.8 -2.6 -2 z"
+        fill="#8e6bbf"/>
+  <!-- wrapper ridges -->
+  <path d="M25 38 l2 16 M32 38 l0 16 M39 38 l-2 16" stroke="#7a58a8" stroke-width="1.6" fill="none"/>
+
+  <!-- cherry heart on top -->
+  <path d="M32 16
+           c -1.6 -3 -6 -2.4 -6 1
+           c 0 2.4 3.4 4.6 6 6.4
+           c 2.6 -1.8 6 -4 6 -6.4
+           c 0 -3.4 -4.4 -4 -6 -1 z"
+        fill="#e58fb1"/>
+
+  <!-- frosting sparkles -->
+  <circle cx="24" cy="30" r="1.3" fill="#fdf9f3"/>
+  <circle cx="33" cy="27" r="1.3" fill="#fdf9f3"/>
+  <circle cx="40" cy="31" r="1.3" fill="#fdf9f3"/>
+</svg>

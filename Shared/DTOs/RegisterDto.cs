@@ -11,8 +11,9 @@ namespace Shared.DTOs
     {
         [Required(ErrorMessage ="Display name is Required")]
         public string DisplayName { get; init; }
-        [Required(ErrorMessage ="UserName is Reqiuerd")]
-        public string UserName { get; init; }
+        // Optional - the storefront's register form doesn't send one; the service
+        // falls back to the email as the username.
+        public string? UserName { get; init; }
 
         [Required(ErrorMessage ="Email is Reqiuerd")]
         public string Email { get; init; }

@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Presentation
 {
     [Authorize]
-    public class OrderController(IServiceManger _serviceManger) : ApiController
+    [Route("orders")]
+    public class OrderController(IServiceManager _serviceManger) : ApiController
     {
         [HttpPost]
         public async Task<ActionResult<OrderToReturnDto>> CreateOrder(CreateOrderDto createOrderDto)

@@ -10,11 +10,11 @@ namespace ServicesAbstractions
     public interface IBasketService
     {
         //Get
-        public Task<BasketDto> GetBasketAync(string id);
+        public Task<BasketDto> GetBasketAsync(string id);
         //delete
-        public Task<bool> DeletebasketAsync (string id);
+        public Task<bool> DeleteBasketAsync (string id);
         //update
-        public Task<BasketDto> updateBasketAsync (BasketDto basket, TimeSpan? TimeToLive);
+        public Task<BasketDto> UpdateBasketAsync (BasketDto basket, TimeSpan? TimeToLive);
 
     }
 }

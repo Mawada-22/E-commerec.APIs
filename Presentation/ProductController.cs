@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace Presentation
 {
-    public class ProductController(IServiceManger _serviceManger): ApiController
+    [Route("products")]
+    public class ProductController(IServiceManager _serviceManger): ApiController
     {
 
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<PaginationResult<ProductDto>>> GetAllProducts([FromQuery]ProductSpecParams Params)
         {
@@ -20,6 +22,7 @@ namespace Presentation
             return Ok(Products);
         }
 
+        [Cached(600)]
         [HttpGet("Brands")]
         public async Task<ActionResult<IEnumerable<BrandDto>>> GetAllBrandss()
         {
@@ -27,6 +30,7 @@ namespace Presentation
             return Ok(Brands);
         }
 
+        [Cached(600)]
         [HttpGet("Types")]
         public async Task<ActionResult<IEnumerable<TypeDto>>> GetAllTypes()
         {
@@ -34,6 +38,7 @@ namespace Presentation
             return Ok(Tyeps);
         }
 
+        [Cached(600)]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.DTOs
 {
-    public record PaginationResult<TData>(int pageSize, int pageIndex, int countDataRecords, IEnumerable<TData> Data)
+    public record PaginationResult<TData>(int pageSize, int pageIndex, int count, IEnumerable<TData> Data)
     {
 
 

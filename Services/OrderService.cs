@@ -1,5 +1,5 @@
 using AutoMapper;
-using Domain.Contarcts;
+using Domain.Contracts;
 using Domain.Entities;
 using Domain.Exceptions;
 using Services.Specifications;
@@ -16,8 +16,8 @@ namespace Services
         public async Task<OrderToReturnDto> CreateOrderAsync(CreateOrderDto createOrderDto, string buyerEmail)
         {
             //1- get the basket
-            var basket = await _basketService.GetBasketAync(createOrderDto.BasketId);
-            if (basket is null || basket.BasketItems is null || !basket.BasketItems.Any())
+            var basket = await _basketService.GetBasketAsync(createOrderDto.BasketId);
+            if (basket is null || basket.Items is null || !basket.Items.Any())
                 throw new EmptyBasketException(createOrderDto.BasketId);
 
             //2- get the delivery method
@@ -28,7 +28,7 @@ namespace Services
             var productRepo = _unitOfWork.GetRepo<int, Product>();
             var orderItems = new List<OrderItem>();
 
-            foreach (var basketItem in basket.BasketItems)
+            foreach (var basketItem in basket.Items)
             {
                 var product = await productRepo.GetByIdAsync(basketItem.Id)
                     ?? throw new ProductNotFoundException(basketItem.Id);
@@ -52,23 +52,28 @@ namespace Services
             var order = new Order
             {
                 BuyerEmail = buyerEmail,
-                ShippingAddress = _mapper.Map<ShippingAddress>(createOrderDto.ShippingAddress),
+                ShippingAddress = _mapper.Map<ShippingAddress>(createOrderDto.ShipToAddress),
                 DeliveryMethodId = deliveryMethod.Id,
                 DeliveryMethod = deliveryMethod,
                 Items = orderItems,
-                SubTotal = subTotal
+                SubTotal = subTotal,
+                PaymentIntentId = basket.PaymentIntentId
             };
 
             var orderRepo = _unitOfWork.GetRepo<int, Order>();
             await orderRepo.AddAsync(order);
             await _unitOfWork.SaveChangesAsync();
 
+            //5- the basket has served its purpose - clear it (after the order is
+            //   safely persisted, so a failed save never wipes the customer's cart)
+            await _basketService.DeleteBasketAsync(createOrderDto.BasketId);
+
             return _mapper.Map<OrderToReturnDto>(order);
         }
 
         public async Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodsAsync()
         {
-            var deliveryMethods = await _unitOfWork.GetRepo<int, DeliveryMethod>().GatAllAsync();
+            var deliveryMethods = await _unitOfWork.GetRepo<int, DeliveryMethod>().GetAllAsync();
             return _mapper.Map<IEnumerable<DeliveryMethodDto>>(deliveryMethods);
         }
 
@@ -80,7 +85,7 @@ namespace Services
 
         public async Task<IEnumerable<OrderToReturnDto>> GetOrdersForUserAsync(string buyerEmail)
         {
-            var orders = await _unitOfWork.GetRepo<int, Order>().GatAllAsync(new OrderSpecifications(buyerEmail));
+            var orders = await _unitOfWork.GetRepo<int, Order>().GetAllAsync(new OrderSpecifications(buyerEmail));
             return _mapper.Map<IEnumerable<OrderToReturnDto>>(orders);
         }
     }

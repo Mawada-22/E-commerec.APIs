@@ -4,6 +4,8 @@ namespace Domain.Entities
     {
         Pending,
         Confirmed,
-        Cancelled
+        Cancelled,
+        PaymentReceived,
+        PaymentFailed
     }
 }

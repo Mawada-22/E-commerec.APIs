@@ -1,9 +1,9 @@
-using Domain.Contarcts;
+using Domain.Contracts;
 using Domain.Entities;
 
 namespace Services.Specifications
 {
-    public class OrderSpecifications : SpeceficationsAbstracut<Order>
+    public class OrderSpecifications : BaseSpecifications<Order>
     {
         //orders for a given buyer, most recent first
         public OrderSpecifications(string buyerEmail) : base(o => o.BuyerEmail == buyerEmail)

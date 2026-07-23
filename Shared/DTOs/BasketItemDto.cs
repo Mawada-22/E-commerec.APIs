@@ -14,7 +14,7 @@ namespace Shared.DTOs
         public string PictureUrl { get; init; }
         [Range(1,double.MaxValue,ErrorMessage ="Enter valid Price")]
         public decimal Price { get; init; }
-        public string Category { get; init; }
+        public string Type { get; init; }
         public string Brand { get; init; }
         [Range(1,50,ErrorMessage = "Quantity can not be greater than 50")]
         public int Quantity { get; init; }

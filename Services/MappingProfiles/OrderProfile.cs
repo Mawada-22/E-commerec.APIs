@@ -18,6 +18,7 @@ namespace Services.MappingProfiles
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<OrderItemPictureUrlResolver>());
 
             CreateMap<Order, OrderToReturnDto>()
+                .ForMember(d => d.ShipToAddress, o => o.MapFrom(s => s.ShippingAddress))
                 .ForMember(d => d.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.ShortName))
                 .ForMember(d => d.DeliveryCost, o => o.MapFrom(s => s.DeliveryMethod.Price))
                 .ForMember(d => d.Total, o => o.MapFrom(s => s.SubTotal + s.DeliveryMethod.Price))

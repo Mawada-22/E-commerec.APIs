@@ -14,8 +14,9 @@
         public int? TypeId { get; set; }
         public string? Search { get; set; }
 
-        // Sorting
-        public ProductSortingOptions? Sort { get; set; }
+        // Sorting - string values sent by the storefront client:
+        // "name" (default, A-Z), "nameDesc", "priceAsc", "priceDesc".
+        public string? Sort { get; set; }
 
         // Paging
         public int PageIndex { get; set; } = 1;

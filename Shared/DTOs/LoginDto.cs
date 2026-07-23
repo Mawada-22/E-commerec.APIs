@@ -11,7 +11,7 @@ namespace Shared.DTOs
     {
         [Required]
         [EmailAddress]
-        public string EmailAddress { get; init; }
+        public string Email { get; init; }
         [Required]
         public string Password { get; init; }  
 

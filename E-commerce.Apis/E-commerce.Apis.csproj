@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>E_commerce.Apis</RootNamespace>
+    <UserSecretsId>82e1364f-0662-409f-ab40-f4172b55892d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Presentation\Presentation.csproj" />
-    <ProjectReference Include="..\Presistance\Presistance.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 

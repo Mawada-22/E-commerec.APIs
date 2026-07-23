@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
+@import "../node_modules/bootswatch/dist/pulse/bootstrap.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/ngx-toastr/toastr.css";
+
+/* ── Mawada's Kitchen theme ─────────────────────────────────────────
+   Palette: soft purples on creamy white, lighter + smaller type.   */
+:root {
+    --mk-purple: #8e6bbf;        /* main brand purple (soft) */
+    --mk-purple-deep: #593196;   /* pulse primary, for accents */
+    --mk-lavender: #c9b6e4;      /* light lavender */
+    --mk-pink: #f3d9e5;          /* blush pink touch */
+    --mk-cream: #fdf9f3;         /* creamy white background */
+    --mk-cream-2: #f8f1e7;       /* slightly deeper cream (cards/stripes) */
+    --mk-text: #5a5560;          /* soft charcoal, easier than black */
+}
+
+html { font-size: 14px; }        /* everything a touch smaller */
+
+body {
+    background-color: var(--mk-cream) !important;
+    color: var(--mk-text);
+    font-family: "Quicksand", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--mk-purple-deep); }
+
+.card, .list-group-item, .form-control, .custom-select {
+    background-color: #fffdfa;
+    border-color: #eee3d8;
+    border-radius: 0.75rem;
+}
+
+.btn { border-radius: 2rem; }    /* rounded, girly buttons */
+
+.btn-primary, .badge-primary, .bg-primary {
+    background-color: var(--mk-purple) !important;
+    border-color: var(--mk-purple) !important;
+}
+.btn-primary:hover { background-color: var(--mk-purple-deep) !important; }
+.btn-outline-primary {
+    color: var(--mk-purple) !important;
+    border-color: var(--mk-purple) !important;
+    background-color: transparent !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--mk-purple) !important;
+    color: #fff !important;
+}
+
+/* Sidebar filter items: explicit text color for EVERY state so the label
+   never vanishes against the hover/selected backgrounds. */
+.list-group-item {
+    cursor: pointer;
+    color: var(--mk-text) !important;
+}
+.list-group-item:hover {
+    background-color: var(--mk-pink) !important;
+    color: var(--mk-purple-deep) !important;
+}
+.list-group-item.active,
+.list-group-item.active:hover {
+    background-color: var(--mk-lavender) !important;
+    border-color: var(--mk-lavender) !important;
+    color: var(--mk-purple-deep) !important;
+    font-weight: 600;
+}
+
+.text-purple { color: var(--mk-purple) !important; }
+
+.xng-breadcrumb-root {
+    padding: 6px 16px;
+    display: inline;
+    border-radius: 0;
+}
+
+label.xng-breadcrumb-trail {
+    margin-bottom: 0;
+    color: var(--mk-purple);
+}
+
+.xng-breadcrumb-separator {
+    padding: 0 0;
+}
+
+.StripeElement {
+    height: 3.125em;
+}

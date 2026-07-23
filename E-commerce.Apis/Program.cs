@@ -1,5 +1,5 @@
 using E_commerce.Apis.Extensions;
-using E_commerce.Apis.Extension;
+using E_commerce.Apis.Extensions;
 
 namespace E_commerce.Apis
 {
@@ -12,7 +12,7 @@ namespace E_commerce.Apis
             #region ServicesContainer
             // Add services to the container.
             builder.Services.AddServices(builder.Configuration);
-            builder.Services.AddIdenetityServices(builder.Configuration);
+            builder.Services.AddIdentityServices(builder.Configuration);
             #endregion
             var app = builder.Build();
             // Configure the HTTP request pipeline.
