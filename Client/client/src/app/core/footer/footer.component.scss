@@ -1,0 +1,21 @@
+.mk-footer {
+    background-color: #f3ecf9;          // pale lavender
+    color: #5a5560;
+    border-top: 1px solid #e2d5f0;
+
+    h6 { color: #593196; }
+
+    .brand {
+        font-family: "Pacifico", cursive;
+        font-size: 1.1rem;
+        color: #8e6bbf;
+    }
+
+    a {
+        color: #8e6bbf;
+        text-decoration: none;
+        &:hover { color: #593196; }
+    }
+
+    .mk-copy { border-color: #e2d5f0 !important; }
+}

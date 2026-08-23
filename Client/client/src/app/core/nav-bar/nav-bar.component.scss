@@ -1,0 +1,46 @@
+.mk-header {
+    background-color: #fdf9f3;           // creamy white bar
+    border-bottom: 1px solid #eee3d8 !important;
+    min-height: 52px;                    // thinner than the old p-3 header
+}
+
+.brand-logo {
+    height: 38px;      // keeps the header thin
+    width: 38px;
+}
+
+.brand {
+    font-family: "Pacifico", cursive;
+    font-size: 1.5rem;
+    color: #8e6bbf;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.2;
+    &:hover { color: #593196; text-decoration: none; }
+    &:focus { outline: none; }
+}
+
+.nav-links { font-size: 0.85rem; letter-spacing: 0.06em; }
+
+.cart-no {
+    position: absolute;
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 50%;
+    font-size: 0.8em;
+    background: #8e6bbf;                 // brand purple badge
+    color: white;
+    text-align: center;
+    top: -10px;
+    right: 36px;
+}
+
+a {
+    text-decoration: none;
+    color: #5a5560;
+    &.active {
+        color: #8e6bbf;
+    }
+}
+
+.text-purple { color: #8e6bbf; }

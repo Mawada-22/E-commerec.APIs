@@ -1,0 +1,130 @@
+[
+  {
+    "Name": "Italian Chicken Marinade",
+    "Description": "This Italian dressing chicken marinade is a super simple but delicious way to add flavor before grilling.",
+    "Price": 200,
+    "PictureUrl": "images/products/ItalianChickenMarinade.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "Chicken Marsala",
+    "Description": "Chicken Marsala is an Italian-style recipe for tender pan-fried chicken breasts in a sweet Marsala wine and mushroom sauce. It's super quick and easy to make for a weeknight dinner AND sophisticated enough for company.",
+    "Price": 150,
+    "PictureUrl": "images/products/ChickenMarsala.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "Hearty Vegetable Lasagna",
+    "Description": "This hearty, vegetable lasagna is the only lasagna my husband will eat. We love it! Hope you all enjoy it as much as we do.",
+    "Price": 180,
+    "PictureUrl": "images/products/HeartyVegetableLasagna.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 6
+  },
+  {
+    "Name": "Cheesy Vegetable Lasagna",
+    "Description": "A rich, cheesy lasagna loaded with vegetables. You could also omit all veggies except broccoli for a broccoli lasagna.",
+    "Price": 300,
+    "PictureUrl": "images/products/CheesyVegetableLasagna.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 6
+  },
+  {
+    "Name": "Pasta Salad",
+    "Description": "This pasta salad recipe was given to me by a dear friend many years ago, and I've been making it ever since! It's great for barbecues.",
+    "Price": 250,
+    "PictureUrl": "images/products/PastaSalad.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Italian Wedding Soup",
+    "Description": "This lovely Italian wedding soup recipe combines flavorful meatballs with sliced escarole, orzo pasta, and finely chopped carrot. Serve hot, garnished with fresh parsley and extra Parmesan cheese.",
+    "Price": 120,
+    "PictureUrl": "images/products/ItalianWeddingSoup.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "Chicken Teriyaki Noodles",
+    "Description": "Silky noodles tossed with tender chicken in a glossy sweet-savoury teriyaki sauce, finished with sesame and spring onion.",
+    "Price": 220,
+    "PictureUrl": "images/products/ChickenTeriyakiNoodles.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Chicken Tikka Masala",
+    "Description": "Charred chicken tikka simmered in a creamy spiced tomato gravy. Rich, warming and best served with rice or naan.",
+    "Price": 260,
+    "PictureUrl": "images/products/ChickenTikkaMasala.jpg",
+    "ProductTypeId": 3,
+    "ProductBrandId": 1
+  },
+  {
+    "Name": "Congee",
+    "Description": "A comforting slow-simmered rice porridge, gently seasoned and topped to taste. Light, soothing and perfect any time of day.",
+    "Price": 110,
+    "PictureUrl": "images/products/Congee.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "Creamy Gochujang Tortellini",
+    "Description": "Cheese-filled tortellini in a velvety gochujang cream sauce - a little sweet, a little spicy, completely addictive.",
+    "Price": 240,
+    "PictureUrl": "images/products/CreamyGochujangTortellini.png",
+    "ProductTypeId": 4,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Crispy Vegetable Pakoras",
+    "Description": "Golden, crunchy vegetable fritters in a spiced chickpea batter. Served hot with chutney on the side.",
+    "Price": 100,
+    "PictureUrl": "images/products/CrispyVegetablePakoras.png",
+    "ProductTypeId": 3,
+    "ProductBrandId": 6
+  },
+  {
+    "Name": "Haluski Noodles",
+    "Description": "Buttery pan-fried noodles with sweet caramelised cabbage and onion - simple, homely comfort food.",
+    "Price": 170,
+    "PictureUrl": "images/products/HaluskiNoodles.png",
+    "ProductTypeId": 1,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Tiramisu",
+    "Description": "The classic Italian dessert - espresso-soaked ladyfingers layered with airy mascarpone cream and a dusting of cocoa.",
+    "Price": 140,
+    "PictureUrl": "images/products/Tiramisu.avif",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Cheesecake",
+    "Description": "Rich, dense and impossibly creamy baked cheesecake on a buttery biscuit base. A slice of pure comfort.",
+    "Price": 160,
+    "PictureUrl": "images/products/Cheesecake.webp",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Berry Tart",
+    "Description": "A crisp pastry shell filled with silky vanilla custard and crowned with fresh glazed berries.",
+    "Price": 130,
+    "PictureUrl": "images/products/BerryTart.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  },
+  {
+    "Name": "Cherry Danish",
+    "Description": "Flaky, buttery layers of pastry with a sweet cheese centre and a spoonful of cherry compote.",
+    "Price": 90,
+    "PictureUrl": "images/products/CherryDanish.jpg",
+    "ProductTypeId": 1,
+    "ProductBrandId": 5
+  }
+]

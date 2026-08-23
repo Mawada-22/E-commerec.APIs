@@ -1,0 +1,54 @@
+.btn-group {
+    width: 100%;
+}
+
+/* Every product photo renders at the same box, cropped to fill — uniform,
+   tidy grid regardless of the source image's dimensions. */
+.image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.btn {
+    width: 30%;
+    height: 40px;
+}
+
+.image :hover {
+    opacity: 1;
+    & button {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+.hover-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.5);
+    opacity: 0;
+    transition: all 0.5s;
+
+    & button {
+        z-index: 1000;
+        transition: all 0.5s;
+    }
+    & button:first-of-type {
+        transform: translateX(-20px);
+    }
+    & button:last-of-type {
+        transform: translateX(20px);
+    }
+}
