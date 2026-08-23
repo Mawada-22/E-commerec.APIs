@@ -28,9 +28,34 @@ namespace Persistence.Data.DataSeeding
             _roleManager = roleManager;
             _userManager = userManager;
             _configuration = configuration;
-            //ContentRootPath is stable regardless of how/where the process is launched from (IIS, Docker, dotnet publish, etc.),
-            //unlike the process current-directory that the previous relative path relied on.
-            _dataSeedingPath = Path.GetFullPath(Path.Combine(hostEnvironment.ContentRootPath, "..", "Persistence", "Data", "DataSeeding"));
+            _dataSeedingPath = ResolveDataSeedingPath(hostEnvironment);
+        }
+
+        // Where the seed JSON lives differs between running from source and running
+        // published (Docker / IIS / dotnet publish):
+        //   published -> next to the DLLs, because Persistence.csproj copies it to output
+        //   source    -> the sibling Persistence project folder
+        // Probe the deployed location first so a container never depends on the
+        // source tree being present (it isn't).
+        private static string ResolveDataSeedingPath(IHostEnvironment hostEnvironment)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding"),
+                Path.Combine(hostEnvironment.ContentRootPath, "Data", "DataSeeding"),
+                Path.GetFullPath(Path.Combine(hostEnvironment.ContentRootPath, "..", "Persistence", "Data", "DataSeeding"))
+            };
+
+            // "types.json" is the first file the seeder reads - use it as the marker.
+            foreach (var candidate in candidates)
+            {
+                if (File.Exists(Path.Combine(candidate, "types.json")))
+                    return candidate;
+            }
+
+            // Nothing found: return the deployed-location guess so the eventual
+            // error message points at where the files were expected.
+            return candidates[0];
         }
 
         public async Task IdentityInitializeAsync()

@@ -30,15 +30,17 @@
             </ng-container>
         </section>
         <section class="col-10">
-            <div class="d-flex justify-content-between align-items-center pb-2">
+            <!-- Slim, chic toolbar: search sits on the LEFT, the result count is
+                 pushed to the far right. -->
+            <div class="d-flex justify-content-between align-items-center pb-2 mk-shop-toolbar">
+                <div class="form-inline" *ngIf="products">
+                    <input (keyup.enter)="onSearch()" type="text" class="form-control form-control-sm mr-2" #search placeholder="Search">
+                    <button (click)="onSearch()" class="btn btn-sm btn-outline-primary">Search</button>
+                    <button (click)="onReset()" class="btn btn-sm btn-outline-secondary ml-2">Reset</button>
+                </div>
+
                 <app-paging-header [totalCount]="totalCount" [pageNumber]="shopParams.pageNumber"
                     [pageSize]="shopParams.pageSize"></app-paging-header>
-
-                <div class="form-inline mt-2" *ngIf="products">
-                    <input (keyup.enter)="onSearch()" type="text" class="form-control mr-2" #search placeholder="Search">
-                    <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
-                    <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
-                </div>
             </div>
 
             <div class="row">

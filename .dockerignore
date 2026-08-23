@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/.vs/
+**/.git/
+**/.gitignore
+**/*.user
+**/appsettings.Development.json
+Client/client/dist/
+Client/client/.angular/
+**/Dockerfile*
+**/docker-compose*

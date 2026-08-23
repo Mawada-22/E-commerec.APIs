@@ -1,0 +1,73 @@
+# Full local stack: storefront + API + SQL Server + Redis, all containerised.
+#   docker compose up --build      -> http://localhost:4300
+#
+# Host ports are deliberately shifted off the defaults (4300/5000/1434/6380) so
+# this can run alongside `ng serve`, a local SQLEXPRESS and a local redis-server
+# without clashing.
+services:
+
+  client:
+    build:
+      context: ./Client/client
+    ports:
+      - "4300:80"
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # Config keys use __ (double underscore) for nesting in env vars.
+      # Windows auth (Trusted_Connection) does not exist in a Linux container,
+      # so these use SQL logins.
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=Store;User Id=sa;Password=${SA_PASSWORD:-Your_strong_Passw0rd};TrustServerCertificate=True;Encrypt=False"
+      ConnectionStrings__IdentityConnection: "Server=sqlserver,1433;Database=StoreIdentity;User Id=sa;Password=${SA_PASSWORD:-Your_strong_Passw0rd};TrustServerCertificate=True;Encrypt=False"
+      ConnectionStrings__Redis: "redis:6379"
+      # Product image URLs are built from BaseUrl. '/api/' keeps them same-origin
+      # so they resolve through the nginx proxy in the client container.
+      BaseUrl: "/api/"
+      # Secrets: supply via a local .env file or your shell - never commit them.
+      JwtOptions__SecretKey: "${JWT_SECRET_KEY:?set JWT_SECRET_KEY in .env}"
+      SeedUsers__Password: "${SEED_USERS_PASSWORD:-Ec@Seed0nly1}"
+      StripeSettings__SecretKey: "${STRIPE_SECRET_KEY:-}"
+      StripeSettings__WebhookSecret: "${STRIPE_WEBHOOK_SECRET:-}"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-Your_strong_Passw0rd}"
+      MSSQL_PID: Developer
+    ports:
+      - "1434:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    healthcheck:
+      # The API runs migrations at startup, so it must not start before SQL is
+      # actually accepting logins - not merely "container started".
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  mssql-data:
+  redis-data:

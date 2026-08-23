@@ -1,4 +1,4 @@
-<carousel>
+<carousel class="mk-carousel">
     <slide>
         <img src="assets/images/hero1.jpg" alt="first slide" style="display: block; width: 100%;">
     </slide>
@@ -13,6 +13,6 @@
     <div class="d-flex flex-column align-items-center pt-4">
         <h1 class="mk-title">Mawada's Kitchen</h1>
         <p class="mk-tagline">Homemade with love — fresh dishes, sweet moments 💜</p>
-        <a routerLink="/shop" class="btn btn-primary mt-2 px-4 mk-cta">Browse the menu</a>
+        <button type="button" (click)="goToShop()" class="btn btn-primary mt-2 px-4 mk-cta">Browse the menu</button>
     </div>
 </section>

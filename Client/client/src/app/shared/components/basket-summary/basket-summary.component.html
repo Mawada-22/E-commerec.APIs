@@ -38,18 +38,18 @@
                     <td class="align-middle"><strong>{{item.price | currency}}</strong></td>
                     <td class="align-middle">
                         <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
-                            <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa fa-minus-circle text-warning mr-2" style="cursor: pointer; font-size: 2em;"></i>
-                            <span class="font-weight-bold" style="font-size: 1.5em;">
+                            <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa fa-minus-circle mk-icon mr-2" style="cursor: pointer; font-size: 1.5em;"></i>
+                            <span class="font-weight-bold" style="font-size: 1.2em;">
                                 {{item.quantity}}
                             </span>
-                            <i *ngIf="isBasket" (click)="incrementItemQuantity(item)" class="fa fa-plus-circle text-warning mx-2" style="cursor: pointer; font-size: 2em;"></i>
+                            <i *ngIf="isBasket" (click)="incrementItemQuantity(item)" class="fa fa-plus-circle mk-icon mx-2" style="cursor: pointer; font-size: 1.5em;"></i>
                         </div>
                     </td>
                     <td class="align-middle">
                         <strong>{{item.price * item.quantity | currency}}</strong></td>
                     <td class="align-middle text-center">
-                        <a class="text-danger">
-                            <i *ngIf="isBasket" (click)="removeBasketItem(item)" class="fa fa-trash" style="font-size: 2em; cursor: pointer;"></i>
+                        <a class="mk-icon">
+                            <i *ngIf="isBasket" (click)="removeBasketItem(item)" class="fa fa-trash mk-icon" style="font-size: 1.4em; cursor: pointer;"></i>
                         </a>
                     </td>
                 </tr>

@@ -20,7 +20,15 @@ namespace Services
         public async Task<BasketDto> GetBasketAsync(string id)
         {
             var basket = await _basketRepo.GetBasketAsync(id);
-            return basket is null ? throw new BasketNotFoundException(id) :  _mapper.Map<BasketDto>(basket);
+
+            // "No basket yet" is a normal state, not an error: a shopper can hold a
+            // basket id in localStorage after the basket expired, was checked out, or
+            // Redis restarted. Throwing 404 here made the storefront's start-up basket
+            // load redirect the whole app to Not Found instead of showing Home.
+            // Return an empty basket so the client just starts a fresh one.
+            return basket is null
+                ? new BasketDto { Id = id, Items = new List<BasketItemDto>() }
+                : _mapper.Map<BasketDto>(basket);
        }
 
         public async Task<BasketDto> UpdateBasketAsync(BasketDto basket,TimeSpan? TimeToLive)

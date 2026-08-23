@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts;
 using E_commerce.Apis.MiddleWares;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace E_commerce.Apis.Extensions
 {
@@ -22,7 +23,14 @@ namespace E_commerce.Apis.Extensions
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            // Static files only serves KNOWN extensions - modern image formats like
+            // .avif (and .webp on older runtimes) are not mapped by default and would
+            // 404, so register them explicitly for the product photos.
+            var contentTypeProvider = new FileExtensionContentTypeProvider();
+            contentTypeProvider.Mappings[".avif"] = "image/avif";
+            contentTypeProvider.Mappings[".webp"] = "image/webp";
+            app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = contentTypeProvider });
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();

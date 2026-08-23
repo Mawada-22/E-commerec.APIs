@@ -1,8 +1,8 @@
 .list-group-item {
     cursor: pointer;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1em;
+    padding: 6px 14px;      // slimmer sidebar rows
+    font-size: 0.95em;
 
     &:focus {
         outline: none;
@@ -12,9 +12,22 @@
         border-radius: 10px;
     }
 
+    // Purple hover (was orange) with readable text in every state.
     &:not(.active):hover {
-        color: #fff;
-        background-color: rgba(233, 86, 32, 0.705);
+        color: #fff !important;
+        background-color: #b388eb !important;
         border-radius: 10px;
+    }
+}
+
+/* Slim, chic toolbar above the product grid. */
+.mk-shop-toolbar {
+    border-bottom: 1px solid #eee3d8;
+    margin-bottom: 0.75rem;
+    padding-top: 0.25rem;
+
+    .form-control {
+        border-radius: 2rem;       // rounded, soft search field
+        min-width: 200px;
     }
 }

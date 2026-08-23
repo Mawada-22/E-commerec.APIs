@@ -17,7 +17,15 @@
     --mk-text: #5a5560;          /* soft charcoal, easier than black */
 }
 
-html { font-size: 14px; }        /* everything a touch smaller */
+html { font-size: 13px; }        /* everything a touch smaller - balanced, chic */
+
+/* Basket +/-/trash icons (and any other accent icon) in the brand purple. */
+.mk-icon,
+a.mk-icon,
+a.mk-icon:hover {
+    color: var(--mk-purple) !important;
+}
+.mk-icon:hover { color: var(--mk-purple-deep) !important; }
 
 body {
     background-color: var(--mk-cream) !important;

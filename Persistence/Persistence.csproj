@@ -17,4 +17,13 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <!-- Ship the seed data with the build output. Without this the JSON only exists
+       in the source tree, so a published/containerised app cannot find it and the
+       DB initializer throws on startup. -->
+  <ItemGroup>
+    <Content Include="Data\DataSeeding\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@
     <nav class="my-1 my-md-0 me-md-3 text-uppercase nav-links">
         <a class="p-2" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
+        <!-- Guarded route: an anonymous click now lands on login and returns here after. -->
+        <a class="p-2" routerLink="/orders" routerLinkActive="active">Orders</a>
     </nav>
     <div class="d-flex align-items-center">
         <a routerLink='/basket' class="position-relative">
